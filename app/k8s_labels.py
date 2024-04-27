@@ -6,56 +6,10 @@ import sys
 import logging
 import time
 import argparse
+import datetime
 
-# A Python app that will run inside a Docker container and that emits the Kubernetes
-# recommended labels to the console at a regular interval as a single json string.
-# Reference: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/
-#
-# Environment variables are named using the following convention:
 # 
-# APP_KUBERNETES_IO_<KEY>="<VALUE>"
-# Where:
-#   <KEY>       Represents the specific attribute or key from the JSON configuration.
-#   "<VALUE>"   The corresponding value of the attribute or key from the JSON configuration.
-# 
-# Note that, if <VALUE> contains "<KEY>_[ID]_<SUB_KEY>", it indicates a sub-label array, where:
-#   "<KEY>"     Represents the primary label or category of the sub-label array.
-#   "[ID]"      Represents the index or identifier of the sub-label array element.
-#   "<SUB_KEY>" Represents the specific sub-label or attribute within the sub-label array element.
-# 
-# APP_KUBERNETES_IO_INTERVAL="<SECONDS>" is a special environment variable that determines the interval in seconds at which the labels are emitted.
-# 
-# The following is an example of the environment variable syntax in practice:
-#  
-# APP_KUBERNETES_IO_INSTANCE="my-instance"
-# APP_KUBERNETES_IO_MANAGED_BY="my-team"
-# APP_KUBERNETES_IO_PART_OF="my-collection"
-# APP_KUBERNETES_IO_INVENTORY_0_NAME="my-app"
-# APP_KUBERNETES_IO_INVENTORY_0_VERSION="v1"
-# APP_KUBERNETES_IO_INVENTORY_0_COMPONENT="my-component"
-# APP_KUBERNETES_IO_INVENTORY_1_NAME="my-app2"
-# APP_KUBERNETES_IO_INVENTORY_1_VERSION="v2"
-# APP_KUBERNETES_IO_INVENTORY_1_COMPONENT="my-component2"
-
-#
-# The following is an example of the json string that should be printed to the console:
-# {
-#   "app.kubernetes.io/instance": "my-instance",
-#   "app.kubernetes.io/managed-by": "my-team",
-#   "app.kubernetes.io/part-of": "my-collection",
-#   "app.kubernetes.io/inventory": [
-#     {
-#       "name": "my-app",
-#       "version": "v1",
-#       "component": "my-component"
-#     },
-#     {
-#       "name": "my-app2",
-#       "version": "v2",
-#       "component": "my-component2"
-#     }
-#   ]
-# }
+# See the README.md file for more information.
 # 
 
 json_indent = None      # JSON print indentation
@@ -73,7 +27,7 @@ class JsonFormatter(logging.Formatter):
                 pass
 
         log_object = {
-            'time': time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(record.created)),
+            'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'level': record.levelname,
             'message': message
         }
