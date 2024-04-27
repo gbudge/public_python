@@ -1,0 +1,33 @@
+services:
+  default:
+      container_name: default
+      build: .
+      volumes:
+        - ./app:/usr/src/app/
+
+  k8s_labels:
+    container_name: k8s_labels
+    build: .
+    volumes:
+      - ./app:/usr/src/app/
+    
+    # Default. Emits labels to stdout every 300 seconds and no identation.
+    command: k8s_labels.py
+
+    # Optional. Emits labels to stdout every 5 seconds and indents by 2 spaces.
+    # command: k8s_labels.py --indent 2 --interval 5
+
+    # Optional. Emits labels to a file every 5 seconds and no indentation.
+    # command: k8s_labels.py --interval 5
+
+    environment:
+      - TZ=Australia/Sydney
+      - APP_KUBERNETES_IO_INSTANCE=my-instance
+      - APP_KUBERNETES_IO_MANAGED-BY=my-team
+      - APP_KUBERNETES_IO_PART-OF=my-collection
+      - APP_KUBERNETES_IO_INVENTORY_0_NAME=my-app
+      - APP_KUBERNETES_IO_INVENTORY_0_VERSION=v1
+      - APP_KUBERNETES_IO_INVENTORY_0_COMPONENT=my-component
+      - APP_KUBERNETES_IO_INVENTORY_1_NAME=my-app2
+      - APP_KUBERNETES_IO_INVENTORY_1_VERSION=v2
+      - APP_KUBERNETES_IO_INVENTORY_1_COMPONENT=my-component2
