@@ -17,6 +17,7 @@ services:
     environment:
       - TZ=Australia/Sydney
       - EV_LOGGER_PREFIX=APP_CONTOSO_MS                       # Mandatory. Prefix for the environment variables.
+      # - EV_LOGGER_SYSLOG=0                                  # Optional. Set to 1 to enable syslog. Default is 0.
       # - EV_LOGGER_INDENT=2                                  # Optional. JSON indentation. Default is 0.
       # - EV_LOGGER_INTERVAL=300                              # Optional. Interval (sec) to log. Default is 300.
       # - EV_LOGGER_INTERVAL=0                                # Example of logging only once.
@@ -27,9 +28,9 @@ services:
       - APP_CONTOSO_MS_INSTANCE=my-instance
       - APP_CONTOSO_MS_MANAGED-BY=my-team
       - APP_CONTOSO_MS_PART-OF=my-collection
-      - APP_CONTOSO_MS_INVENTORY_0_NAME=my-app
-      - APP_CONTOSO_MS_INVENTORY_0_VERSION=v1
-      - APP_CONTOSO_MS_INVENTORY_0_COMPONENT=my-component
-      - APP_CONTOSO_MS_INVENTORY_1_NAME=my-app2
-      - APP_CONTOSO_MS_INVENTORY_1_VERSION=v2
-      - APP_CONTOSO_MS_INVENTORY_1_COMPONENT=my-component2
+      - APP_CONTOSO_MS_INVENTORY__0__NAME=my-app
+      - APP_CONTOSO_MS_INVENTORY__0__VERSION=v1
+      - APP_CONTOSO_MS_INVENTORY__0__COMPONENT=my-component
+      - APP_CONTOSO_MS_INVENTORY__1__NAME=my-app2
+      - APP_CONTOSO_MS_INVENTORY__1__VERSION=v2
+      - APP_CONTOSO_MS_INVENTORY__1__COMPONENT=my-component2
