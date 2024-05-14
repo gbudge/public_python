@@ -30,7 +30,7 @@ Bug fixes and support for OS syslog.
 
 ### Added
 
-* k8s_labels: Added export EV_LOGGER_SYSLOG environment variable. When set to 1, will use Python syslog library when emitting events. Default is to not use syslog.
+* k8s_labels: Added export `EV_LOGGER_SYSLOG` environment variable. When set to 1, will use Python syslog library when emitting events. Default is to not use syslog.
 
 ### Changed
 
