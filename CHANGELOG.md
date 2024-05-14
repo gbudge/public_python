@@ -24,6 +24,19 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 - Trademark sign previously shown after the project description in version 0.3.0
 -->
 
+## [2.1.0] - 2024-05-14
+
+Bug fixes and support for OS syslog.
+
+### Added
+
+* k8s_labels: Added export EV_LOGGER_SYSLOG environment variable. When set to 1, will use Python syslog library when emitting events. Default is to not use syslog.
+
+### Changed
+
+* k8s_labels: Improved handling of sub-keys to be more reliable.
+- k8s_labels: Sub-key indexes must exist with double underscore. Example: `APP_CONTOSO_MS_INVENTORY__0__NAME` instead of `APP_CONTOSO_MS_INVENTORY_0_NAME`.
+
 ## [2.0.0] - 2024-05-12
 
 Major envar_logger update to support additional configuration options and quality improvements.
