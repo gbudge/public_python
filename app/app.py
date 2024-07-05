@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # 
 # Default app for the container.
 # 
