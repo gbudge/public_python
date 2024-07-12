@@ -1,15 +1,28 @@
 services:
+  soe:
+    container_name: soe
+    image: python_soe:latest
+    build: soe/.
+    environment:
+      - TZ=Australia/Sydney
+  
   default:
-      container_name: default
-      build: .
-      volumes:
-        - ./app:/usr/src/app/
+    build: 
+      context: .
+      args:
+        - APP_NAME=default
+    
+    container_name: default
+    image: python_default:latest
+    volumes:
+      - ./apps/default:/home/appuser/app/
 
   ev_logger:
     container_name: ev_logger
+    image: ev_logger:latest
     build: .
     volumes:
-      - ./app:/usr/src/app/
+        - ./apps/default:/usr/src/app/
     
     # Default. Emits labels to stdout every 300 seconds and no identation.
     command: ev_logger.py

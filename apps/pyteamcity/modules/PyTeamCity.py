@@ -11,7 +11,12 @@ from requests.exceptions import HTTPError
 import logging
 import json
 
+# Configure the logger and format the logs as JSON.
 class PrettyJsonFormatter(logging.Formatter):
+    def __init__(self, datefmt='%Y-%m-%d %H:%M:%S', indent=2):
+        self.datefmt = datefmt
+        self.indent = indent
+    
     def format(self, record):
         log_record = {
             "time": self.formatTime(record, self.datefmt),
@@ -19,7 +24,12 @@ class PrettyJsonFormatter(logging.Formatter):
             "level": record.levelname,
             "message": record.getMessage()
         }
-        return json.dumps(log_record, indent=4)
+
+        # Ensure the indent is between 0 and 10.
+        if (not self.indent and self.indent != 0) or self.indent < 0:
+            return json.dumps(log_record)
+        
+        return json.dumps(log_record, indent=min(self.indent, 10))
 
 class PyTeamCity:
     # 
@@ -48,7 +58,13 @@ class PyTeamCity:
     _response_format:str = None # json or object
     _headers:str = {}
 
+    _log_stream_handler = logging.StreamHandler()
+    _log_stream_handler.setFormatter(PrettyJsonFormatter())
+
     _logger = logging.getLogger('PyTeamCity')
+    _logger.propagate = False
+    _logger.addHandler(_log_stream_handler)
+    _logger.setLevel(logging.INFO)
 
     def __init__(self, base_url:str=None, username:str=None, password:str=None, token=None, body_format='json', response_format:str='json'):
         try:
@@ -165,33 +181,3 @@ class PyTeamCity:
         except Exception as e:
             self._logger.error(f'Error: {e}')
             return False, 'Failure', e
-
-# 
-# Main
-# 
-if __name__ == '__main__':
-    # Set up the app logger. Formatted as a table.
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.INFO)
-    logger.addHandler(logging.StreamHandler())
-
-    tc = PyTeamCity(base_url='http://localhost:8111', username='replaceme', password='replaceme')
-    
-    result, message, response = tc.get_users(fields='**')
-
-    if not result:
-        logger.error(f'{message}')
-        exit(1)
-    
-    # 
-    # Look for any users with a role in the project scope.
-    scope_exact = [ 'p:MyParentProject' ]
-    scope_starts_with = [ f'{scope_exact[0]}_' ]   
-
-    for user in response['user']:
-        username, roles = user['username'], user['roles']['role']
-
-        for role in roles:
-
-            if role['scope'] in scope_exact or any([role['scope'].startswith(s) for s in scope_starts_with]):
-                logger.info(f'Username: {username}\tRoleId: {role["roleId"]}\tScope: {role["scope"]}')

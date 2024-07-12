@@ -1,9 +1,11 @@
-FROM python:3
+FROM python_soe:latest
 
-WORKDIR /usr/src/app
+ARG APP_SOURCE=apps/default
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ${APP_SOURCE}/requirements.txt ./
+RUN pip install --no-cache-dir -r ./requirements.txt
+
+WORKDIR /home/appuser/app
 
 ENTRYPOINT [ "python" ]
-CMD [ "./app.py" ]
+CMD [ "app.py" ]

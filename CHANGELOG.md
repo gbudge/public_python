@@ -4,9 +4,9 @@
 
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog], and this project adheres to [Semantic Versioning].
 
-The format is based on [Keep a Changelog], and this project adheres to [Semantic Versioning].
+Dates are formatted as: DD/MM/YYYY
 
 <!-- Example...
 ## [Unreleased]
@@ -24,9 +24,22 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 - Trademark sign previously shown after the project description in version 0.3.0
 -->
 
-## [2.1.0] - 2024-05-14
+## 05/07/2024
 
-Bug fixes and support for OS syslog.
+v2.2.0: 
+
+### Added
+
+* `.gitignore` file.
+
+### Changed
+
+* Documentation format update in `README.md`.
+* Reorganised files.
+
+## 14/05/2024
+
+v2.1.0: Bug fixes and support for OS syslog.
 
 ### Added
 
@@ -37,9 +50,9 @@ Bug fixes and support for OS syslog.
 * k8s_labels: Improved handling of sub-keys to be more reliable.
 - k8s_labels: Sub-key indexes must exist with double underscore. Example: `APP_CONTOSO_MS_INVENTORY__0__NAME` instead of `APP_CONTOSO_MS_INVENTORY_0_NAME`.
 
-## [2.0.0] - 2024-05-12
+## 12/05/2024
 
-Major envar_logger update to support additional configuration options and quality improvements.
+v2.0.0: Major envar_logger update to support additional configuration options and quality improvements.
 
 
 ### Changed
@@ -61,7 +74,9 @@ Major envar_logger update to support additional configuration options and qualit
 * envar_logger: Sample environment variables in the app code. Set via docker-compose.yaml instead.
 * envar_logger: All command line parameters. Replaced by environment variables.
 
-## [1.0.1] - 2024-04-27
+## 27/04/2024
+
+v1.0.1: Minor repo reorganisation.
 
 ### Added
 
@@ -74,7 +89,9 @@ Major envar_logger update to support additional configuration options and qualit
 - Updated [`README.md`](README.md) with [`k8s_labels.py`](app/k8s_labels.py) docs.
 - Updated [`k8s_labels.py`](app/k8s_labels.py) to use container timezone.
 
-## [1.0.0] - 2024-04-26
+## 26/04/2024
+
+v1.0.0: Initial commits.
 
 ### Added
 
