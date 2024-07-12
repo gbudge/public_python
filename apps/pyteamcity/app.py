@@ -135,7 +135,7 @@ if __name__ == '__main__':
     
     # 
     # Look for any users with a role in the project scope.
-    scope_exact = [ 'p:Risk' ]
+    scope_exact = [ 'p:MyProj' ]
     scope_starts_with = [ f'{scope_exact[0]}_' ]   
 
     for user in response['user']:
