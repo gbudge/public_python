@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Security Group Rules'
+
+Parameters:
+  SecurityGroupIds:
+    Description: Comma-delimited list of security group IDs.
+    Type: CommaDelimitedList
+    AllowedPattern: '^$|^sg-[a-f0-9]{8,17}$'
+    Default: ''
+
+Conditions:
+  HasSecurityGroupIds: !Not [!Equals [!Join [",", !Ref SecurityGroupIds], ""]]
+
+
+Resources:
+  'Fn::ForEach::Rules':
+    - Identifier
+    - !Ref SecurityGroupIds
+    - 'sgRule${Identifier}'
+        Type: AWS::EC2::SecurityGroupIngress
+        Properties:
+          GroupId: !Ref SecurityGroupIds
+          IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 10.0.0.0/8
