@@ -24,9 +24,19 @@ Dates are formatted as: DD/MM/YYYY
 - Trademark sign previously shown after the project description in version 0.3.0
 -->
 
+## 23/07/2024
+
+default v1.0.1
+
+### Changed
+
+* Fixed several Pylint linting warnings.
+* Minor log message changes.
+
+
 ## 05/07/2024
 
-v2.2.0: 
+Documentation update and repo file layout.
 
 ### Added
 
@@ -39,7 +49,7 @@ v2.2.0:
 
 ## 14/05/2024
 
-v2.1.0: Bug fixes and support for OS syslog.
+k8s_labels v2.1.0
 
 ### Added
 
@@ -52,7 +62,7 @@ v2.1.0: Bug fixes and support for OS syslog.
 
 ## 12/05/2024
 
-v2.0.0: Major envar_logger update to support additional configuration options and quality improvements.
+k8s_labels v2.0.0
 
 
 ### Changed
@@ -76,7 +86,7 @@ v2.0.0: Major envar_logger update to support additional configuration options an
 
 ## 27/04/2024
 
-v1.0.1: Minor repo reorganisation.
+k8s_labels.py v1.0.1
 
 ### Added
 
