@@ -45,13 +45,21 @@ The script accepts the following command line parameters:
 To run the script, use the following command:
 
 ```sh
-python app.py --host <hostname or IP address> --port <port number> --protocol <protocol> --save-to <output directory>
+python app.py \
+  --host <hostname or IP address> \
+  --port <port number> \
+  --protocol <protocol> \
+  --save-to <output directory>
 ```
 
 Example:
 
 ```sh
-python app.py --host 192.168.1.1 --port 80 --protocol http --save-to downloads
+python app.py \
+  --host 192.168.1.1 \
+  --port 80 \
+  --protocol http \
+  --save-to downloads
 ```
 
 ### Docker container
