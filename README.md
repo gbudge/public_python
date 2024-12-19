@@ -8,7 +8,7 @@ This repository contains my collection of Python applications that run inside of
   - [Purpose](#purpose)
   - [Command Line Parameters](#command-line-parameters)
   - [Usage](#usage)
-  - [Using the Container](#using-the-container)
+  - [Docker Container](#docker-container)
   - [Example Output](#example-output)
 - [Environment Variable Logger](#environment-variable-logger)
   - [Configuration](#configuration)
@@ -62,7 +62,7 @@ python app.py \
   --save-to downloads
 ```
 
-### Docker container
+### Docker Container
 
 The script can also be run inside a Docker container. The `docker-compose.yaml` file is configured to build and run the container for the Blackvue 970 XP Downloader.
 
