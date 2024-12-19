@@ -118,18 +118,20 @@ def is_camera_reachable(protocol: str, ip_host: str, port: int):
         ip_host (str): The IP address or hostname of the camera.
         port (int): The port number to use for the connection.
     Returns:
-        bool: True if the camera is reachable (status code 200), False otherwise.
+        bool: True if the camera is reachable (status code 200).
     Raises:
-        requests.RequestException: If there is an issue with the request.
+        requests.RequestException: If there is an issue with the request or the status code is not 200.
     """
     
     url = f"{protocol}://{ip_host}:{port}/blackvue_vod.cgi"
     try:
         response = requests.get(url, timeout=10)
-        if response.status_code == 200:
-            return True
+        if response.status_code != 200:
+            raise requests.RequestException(f"Status code: {response.status_code}")
     except requests.RequestException as e:
         raise e
+
+    return True
 
 def get_file_list(protocol: str, ip_host: str, port: int):
     """
@@ -288,20 +290,20 @@ def main():
     args = parser.parse_args()
 
     # Check for required parameters
-    if not args.protocol:
-        LOGGER.error("Protocol is required")
+    if not args.protocol.strip() or not args.protocol.strip() in ("http", "https"):
+        LOGGER.error("Protocol must be either 'http' or 'https'")
         return False
     
-    if not args.host:
+    if not args.host.strip():
         LOGGER.error("Hostname or IP Address is required")
         return False
 
-    if not args.port:
-        LOGGER.error("Port number is required")
+    if not args.port or args.port < 1 or args.port > 65535:
+        LOGGER.error("Port number must be between 1 and 65535")
         return False
 
-    if not args.save_to:
-        LOGGER.error("Output directory is required")
+    if not args.save_to.strip() or not os.path.exists(args.save_to.strip()) or not os.access(args.save_to.strip(), os.W_OK):
+        LOGGER.error("Output directory does not exist or is not writable")
         return False
     
     #
@@ -309,16 +311,10 @@ def main():
     #
     LOGGER.info("Blackvue 970 XP Downloader started")
 
-    # Check if the output directory exists and is writable
-    if not os.path.exists(args.save_to) or not os.access(args.save_to, os.W_OK):
-        LOGGER.error(f"Output directory does not exist or is not writable: {args.save_to}")
-        return False
-
     # Check if the camera is reachable
     try:
         if not is_camera_reachable(args.protocol, args.host, args.port):
-            LOGGER.error(f"Camera is not reachable at {args.protocol}://{args.host}:{args.port}")
-            return False
+            raise f"Camera is not reachable at {args.protocol}://{args.host}:{args.port}"
     except requests.RequestException as e:
         LOGGER.error(f"Failed to connect to the camera. Reason: {e}")
         return False
