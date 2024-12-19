@@ -267,6 +267,8 @@ def download_file(protocol: str, ip_host: str, port: int, file_path: str, downlo
         # Rename the temporary file to the final filename
         os.rename(save_to_temp, save_to)
 
+        return True
+
     except requests.RequestException as e:
         raise e
 
@@ -336,7 +338,7 @@ def main():
         try:
             res = download_file(args.protocol, args.host, args.port, file_path, args.save_to, file_number, total_files)
             if not res:
-                raise (f"Failure: {file_number} of {total_files}: {file_path}. Reason: {e}")
+                raise (f"Failure: {file_number} of {total_files}: {file_path}.")
                 
         except requests.RequestException as e:
             LOGGER.error(f"Failure: {file_number} of {total_files}: {file_path}. Reason: {e}")

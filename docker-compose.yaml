@@ -27,6 +27,7 @@ services:
     image: python_blackvue:latest
     volumes:
       - ./apps/blackvue:/home/appuser/app/
+    restart: on-failure
 
     environment:
       - TZ=Australia/Sydney
