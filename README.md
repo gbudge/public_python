@@ -73,7 +73,29 @@ docker-compose build blackvue
 docker-compose up blackvue
 ```
 
-### Example Usage
+If you do not want to use Docker Compose, then you can build and run the container as follows.
+
+Building the image..
+
+```sh
+cd <git repo>
+docker build \
+  --build-arg APP_SOURCE=blackvue \
+  --tag python_blackvue:latest .
+```
+
+Running the image..
+
+```sh
+docker run \
+  --rm \
+  --name blackvue \
+  --build-arg APP_SOURCE=blackvue \
+  -v $(pwd)/apps/blackvue:/home/appuser/app \
+  python_blackvue:latest
+```
+
+### Example Output
 
 When the script runs, it will log the progress of downloading files from the BlackVue dashcam. Example output:
 
