@@ -4,12 +4,83 @@ This repository contains my collection of Python applications that run inside of
 
 ## Table of Contents
 
-- [Applications](#applications)
-  - [Environment Variable Logger](#environment-variable-logger)
-    - [Configuration](#configuration)
-    - [Examples](#examples)
+- [Blackvue 970 XP Downloader](#blackvue-970-xp-downloader)
+  - [Purpose](#purpose)
+  - [Command Line Parameters](#command-line-parameters)
+  - [Usage](#usage)
+  - [Using the Container](#using-the-container)
+  - [Example Output](#example-output)
+- [Environment Variable Logger](#environment-variable-logger)
+  - [Configuration](#configuration)
+  - [Examples](#examples)
 
 # Applications
+
+## Blackvue 970 XP Downloader
+
+### Purpose
+
+The `Blackvue 970 XP Downloader` script is designed to download video files from the Blackvue 970 XP dashcam. It connects to the dashcam via HTTP, retrieves a list of available files and downloads them to a local directory. If the file already exists and the byte size matches, it will skip over that video file.
+
+### Compatibility
+
+This script has been tested on the following devices:
+
+- Blackvue 970 XP
+
+>[!NOTE]
+>It should work with any other Blackvue that uses the same HTTP method to download the video files. If it does, please consider **raising a pull request** to update the list of compatible devices. Thanks!
+
+### Command Line Parameters
+
+The script accepts the following command line parameters:
+
+- `--host <hostname or IP address>`: The hostname or IP address of the Blackvue 970 XP.
+- `--port <port number>`: The port number of the Blackvue 970 XP. Default is `80`.
+- `--protocol <protocol>`: The protocol to use for the connection. Default is `http`.
+- `--save-to <output directory>`: The directory where the files will be saved. Default is `./downloads`.
+
+### Usage
+
+To run the script, use the following command:
+
+```sh
+python app.py --host <hostname or IP address> --port <port number> --protocol <protocol> --save-to <output directory>
+```
+
+Example:
+
+```sh
+python app.py --host 192.168.1.1 --port 80 --protocol http --save-to downloads
+```
+
+### Docker container
+
+The script can also be run inside a Docker container. The `docker-compose.yaml` file is configured to build and run the container for the Blackvue 970 XP Downloader.
+
+To build and run the container, use the following commands:
+
+```sh
+docker-compose build blackvue
+docker-compose up blackvue
+```
+
+### Example Usage
+
+When the script runs, it will log the progress of downloading files from the BlackVue dashcam. Example output:
+
+```sh
+Blackvue 970 XP Downloader started
+Progress: 1 of 10: /Record/20241217_205239_EF.mp4.. 10.0%
+Progress: 1 of 10: /Record/20241217_205239_EF.mp4.. 20.0%
+Progress: 1 of 10: /Record/20241217_205239_EF.mp4.. 30.0%
+...
+Complete: 1 of 10: /Record/20241217_205239_EF.mp4
+Progress: 2 of 10: /Record/20241217_205239_ER.mp4.. 10.0%
+...
+Complete: 2 of 10: /Record/20241217_205239_ER.mp4
+```
+
 
 ## Environment Variable Logger
 

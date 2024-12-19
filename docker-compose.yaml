@@ -10,12 +10,32 @@ services:
     build: 
       context: .
       args:
-        - APP_NAME=default
+        - APP_SOURCE=default
     
     container_name: default
     image: python_default:latest
     volumes:
       - ./apps/default:/home/appuser/app/
+  
+  blackvue:
+    build: 
+      context: .
+      args:
+        - APP_SOURCE=blackvue
+    
+    container_name: blackvue
+    image: python_blackvue:latest
+    volumes:
+      - ./apps/blackvue:/home/appuser/app/
+
+    environment:
+      - TZ=Australia/Sydney
+    
+    # pass in parameters to the CMD
+    command: [
+      "app.py", 
+      "--host", "192.168.0.111"
+    ]
 
   ev_logger:
     container_name: ev_logger
